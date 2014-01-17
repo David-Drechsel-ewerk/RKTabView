@@ -32,6 +32,18 @@
 }
 
 #pragma mark - Properties
+-(RKTabItem *)selectedTabItem
+{
+  int selectedIndex = [self.tabItems indexOfObjectPassingTest:^BOOL(RKTabItem *obj, NSUInteger idx, BOOL *stop) {
+    return obj.tabState == TabStateEnabled;
+  }];
+  
+  if (selectedIndex == NSNotFound)
+    return nil;
+  
+  RKTabItem *selectedItem = [self.tabItems objectAtIndex:selectedIndex];
+  return selectedItem;
+}
 
 - (void)setTabItems:(NSArray *)tabItems {
     _tabItems = tabItems;
@@ -362,5 +374,6 @@
     CGContextAddLineToPoint(context, pointTo.x, pointTo.y);
     CGContextStrokePath(context);
 }
+
 
 @end
